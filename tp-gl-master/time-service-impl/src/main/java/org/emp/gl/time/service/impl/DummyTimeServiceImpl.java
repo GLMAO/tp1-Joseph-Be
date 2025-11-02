@@ -5,6 +5,7 @@
  */
 package org.emp.gl.time.service.impl;
 
+import java.beans.PropertyChangeSupport;
 import java.time.LocalTime;
 import java.util.LinkedList;
 import java.util.List;
@@ -25,14 +26,17 @@ public class DummyTimeServiceImpl
     int minutes;
     int secondes;
     int heures;
-    List<TimerChangeListener> listeners = new LinkedList<>();
+    //List<TimerChangeListener> listeners = new LinkedList<>();
 
+    private final PropertyChangeSupport support;
     /**
      * Constructeur du DummyTimeServiceImpl: ici, 
      * nous nous avons utilisé un objet Timer, qui permet de
      * réaliser des tics à chaque N millisecondes
      */
     public DummyTimeServiceImpl() {
+
+        this.support = new PropertyChangeSupport(this);
         setTimeValues();
         // initialize schedular
         Timer timer = new Timer();
@@ -60,13 +64,13 @@ public class DummyTimeServiceImpl
     @Override
     public void addTimeChangeListener(TimerChangeListener pl) {
         // TODO
-        listeners.add(pl) ;
+        support.addPropertyChangeListener(pl) ;
     }
 
     @Override
     public void removeTimeChangeListener(TimerChangeListener pl) {
         // TODO
-        listeners.remove(pl) ;
+        support.removePropertyChangeListener(pl) ;
     }
 
     private void timeChanged() {
@@ -81,15 +85,20 @@ public class DummyTimeServiceImpl
         dixiemeDeSeconde = newDixiemeDeSeconde;
 
         // informer les listeners !
-        dixiemeDeSecondesChanged(oldValue, dixiemeDeSeconde);
+        //dixiemeDeSecondesChanged(oldValue, dixiemeDeSeconde);
+        support.firePropertyChange(
+            TimerChangeListener.DIXEME_DE_SECONDE_PROP, 
+            oldValue, 
+            newDixiemeDeSeconde
+        );
     }
 
-    private void dixiemeDeSecondesChanged(int oldValue, int newValue) {
+    /*private void dixiemeDeSecondesChanged(int oldValue, int newValue) {
        for (TimerChangeListener l : listeners) {
            l.propertyChange(TimerChangeListener.DIXEME_DE_SECONDE_PROP,
                    oldValue, dixiemeDeSeconde);
        }
-    }
+    }*/
 
 
     public void setSecondes(int newSecondes) {
@@ -99,16 +108,21 @@ public class DummyTimeServiceImpl
         int oldValue = secondes;
         secondes = newSecondes;
 
-        secondesChanged(oldValue, secondes);
+        //secondesChanged(oldValue, secondes);
+        support.firePropertyChange(
+            TimerChangeListener.SECONDE_PROP, 
+            oldValue, 
+            newSecondes
+        );
     }
 
-    private void secondesChanged(int oldValue, int secondes) {
+    /*private void secondesChanged(int oldValue, int secondes) {
 
        for (TimerChangeListener l : listeners) {
            l.propertyChange(TimerChangeListener.SECONDE_PROP,
                    oldValue, secondes);
        }
-    }
+    }*/
 
 
     public void setMinutes(int newMinutes) {
@@ -118,15 +132,20 @@ public class DummyTimeServiceImpl
         int oldValue = minutes;
         minutes = newMinutes;
 
-        minutesChanged (oldValue, minutes) ;
+        //minutesChanged (oldValue, minutes) ;
+        support.firePropertyChange(
+            TimerChangeListener.MINUTE_PROP, 
+            oldValue, 
+            newMinutes
+        );
     }
 
-    private void minutesChanged(int oldValue, int minutes) {
+    /*private void minutesChanged(int oldValue, int minutes) {
        for (TimerChangeListener l : listeners) {
            l.propertyChange(TimerChangeListener.MINUTE_PROP,
                    oldValue, secondes);
        }
-    }
+    }*/
 
     public void setHeures(int newHeures) {
         if (heures == newHeures)
@@ -135,15 +154,20 @@ public class DummyTimeServiceImpl
         int oldValue = heures;
         heures = newHeures;
 
-        heuresChanged (oldValue, heures) ;
+        //heuresChanged (oldValue, heures) ;
+        support.firePropertyChange(
+            TimerChangeListener.HEURE_PROP, 
+            oldValue, 
+            newHeures
+        );
     }
 
-    private void heuresChanged(int oldValue, int heures) {
+    /*private void heuresChanged(int oldValue, int heures) {
        for (TimerChangeListener l : listeners) {
            l.propertyChange(TimerChangeListener.HEURE_PROP,
                    oldValue, secondes);
        }
-    }
+    }*/
 
 
     @Override

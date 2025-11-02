@@ -26,7 +26,9 @@ public class App {
             int val = 10 + (int)(Math.random() * 11); 
             new CompteARebours("Cmp " + i, val, timerService);
         }
-        // Probème = modification de la liste des listeners pendant son parcours.
+        // (d) Probème = modification de la liste des listeners pendant son parcours.
+        // (e)
+
     }
 
     public static void clearScreen() {

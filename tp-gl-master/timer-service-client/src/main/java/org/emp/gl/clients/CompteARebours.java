@@ -1,5 +1,7 @@
 package org.emp.gl.clients ; 
 
+import java.beans.PropertyChangeEvent;
+
 import org.emp.gl.timer.service.TimerChangeListener;
 import org.emp.gl.timer.service.TimerService ; 
 
@@ -19,9 +21,9 @@ public class CompteARebours implements TimerChangeListener{
     }
 
     @Override
-    public void propertyChange(String prop, Object oldValue, Object newValue) {
-
-        if (TimerChangeListener.SECONDE_PROP.equals(prop)) {
+    public void propertyChange(PropertyChangeEvent evt) {
+        String propertName = evt.getPropertyName();
+        if (TimerChangeListener.SECONDE_PROP.equals(propertName)) {
             if (cmp > 0) {
                 cmp--;
                 System.out.println("[" + name + "] Compte à rebours : " + cmp);
