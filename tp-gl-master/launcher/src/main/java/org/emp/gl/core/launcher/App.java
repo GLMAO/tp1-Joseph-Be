@@ -18,14 +18,14 @@ public class App {
     }
 
     private static void testDuTimeService(TimerService timerService) {
-        Horloge horloge1 = new Horloge("Num 1", timerService) ;
-        Horloge horloge2 = new Horloge("Num 2", timerService) ;
-        Horloge horloge3 = new Horloge("Num 3", timerService) ;
+        //Horloge horloge1 = new Horloge("Num 1", timerService) ;
+        //Horloge horloge2 = new Horloge("Num 2", timerService) ;
+        //Horloge horloge3 = new Horloge("Num 3", timerService) ;
        //CompteARebours cmp = new CompteARebours("Cmp", 5, timerService);
-        /*for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             int val = 10 + (int)(Math.random() * 11); 
             new CompteARebours("Cmp " + i, val, timerService);
-        }*/
+        }
         // Probème = modification de la liste des listeners pendant son parcours.
     }
 
