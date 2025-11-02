@@ -1,2 +1,5 @@
-org/emp/gl/clients/Horloge.class
+org/emp/gl/clients/HorlogePanelAnalogique.class
 org/emp/gl/clients/CompteARebours.class
+org/emp/gl/clients/Horloge.class
+org/emp/gl/clients/HorlogeGUI.class
+org/emp/gl/clients/HorlogeAnalogique.class
