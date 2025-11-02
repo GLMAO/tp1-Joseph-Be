@@ -1,6 +1,9 @@
 package org.emp.gl.core.launcher;
 
+import org.emp.gl.clients.CompteARebours;
 import org.emp.gl.clients.Horloge ;
+import org.emp.gl.time.service.impl.DummyTimeServiceImpl;
+import org.emp.gl.timer.service.TimerService;
 
 /**
  * Hello world!
@@ -9,12 +12,21 @@ import org.emp.gl.clients.Horloge ;
 public class App {
 
     public static void main(String[] args) {
-
-        testDuTimeService();
+        TimerService timerService = new DummyTimeServiceImpl();
+            
+        testDuTimeService(timerService);
     }
 
-    private static void testDuTimeService() {
-        Horloge horloge = new Horloge("Num 1") ;
+    private static void testDuTimeService(TimerService timerService) {
+        Horloge horloge1 = new Horloge("Num 1", timerService) ;
+        Horloge horloge2 = new Horloge("Num 2", timerService) ;
+        Horloge horloge3 = new Horloge("Num 3", timerService) ;
+       //CompteARebours cmp = new CompteARebours("Cmp", 5, timerService);
+        /*for (int i = 1; i <= 10; i++) {
+            int val = 10 + (int)(Math.random() * 11); 
+            new CompteARebours("Cmp " + i, val, timerService);
+        }*/
+        // Probème = modification de la liste des listeners pendant son parcours.
     }
 
     public static void clearScreen() {

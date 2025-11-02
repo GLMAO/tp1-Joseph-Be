@@ -4,16 +4,17 @@ import org.emp.gl.timer.service.TimerChangeListener;
 import org.emp.gl.timer.service.TimerService ; 
 
 
-public class Horloge implements TimerChangeListener{
+public class CompteARebours implements TimerChangeListener{
 
     String name; 
     TimerService timerService ; 
+    int cmp;
 
-
-    public Horloge (String name, TimerService time) {
+    public CompteARebours (String name,int a, TimerService time) {
         this.name = name ; 
         this.timerService = time;
-        System.out.println ("Horloge "+name+" initialized!") ;
+        this.cmp = a;
+        System.out.println ("Compteur "+name+" initialized with value = "+cmp) ;
         timerService.addTimeChangeListener(this);
     }
 
@@ -21,7 +22,15 @@ public class Horloge implements TimerChangeListener{
     public void propertyChange(String prop, Object oldValue, Object newValue) {
 
         if (TimerChangeListener.SECONDE_PROP.equals(prop)) {
-            afficherHeure();
+            if (cmp > 0) {
+                cmp--;
+                System.out.println("[" + name + "] Compte à rebours : " + cmp);
+                
+                if (cmp == 0) {
+                    System.out.println(">>> [" + name + "] Terminé ! Désinscription du service...");
+                    timerService.removeTimeChangeListener(this);
+                }
+            }
         }
     }
 
